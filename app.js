@@ -13,8 +13,7 @@ const connection = mysql.createConnection({
 });
 
 connection.connect(function(error) {
-    if(!!error) console.log(error);
-    else console.log('Database connected!')
+    error ? console.log(error) : console.log('Database connected!');
 });
 
 //this sets the views to be directed to the views folder, try removing the 's' from views and try it out
@@ -27,13 +26,12 @@ app.use(express.urlencoded({ extended: false }))
 
 app.get('/', async (req, res) => {
     let sql = "SELECT * FROM users";
-    let query = connection.query(sql, (err, rows) => {
+    connection.query(sql, (err, rows) => {
         if(err) throw err;
         res.render('user_index', {
             title : 'This is the user_index page',
             users : rows
         });
-        // res.send(rows)
     });
 });
 
