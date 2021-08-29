@@ -25,12 +25,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     let sql = "SELECT * FROM users";
     let query = connection.query(sql, (err, rows) => {
         if(err) throw err;
         res.render('user_index', {
-            title : 'crud operations',
+            title : 'This is the user_index page',
             users : rows
         });
         // res.send(rows)
