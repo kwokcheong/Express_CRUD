@@ -2,7 +2,9 @@
     <body>
         this is the user_index page
         <%= title %>
+        <h2> below are records </h2>
         <% users.forEach(function(user) { %>
+            <br>
             <%= user.name %>
             <%= user.id %>
         <% }); %>
