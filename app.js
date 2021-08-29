@@ -26,8 +26,14 @@ app.use(express.urlencoded({ extended: false }))
 
 
 app.get('/', (req, res) => {
-    res.render('user_index', {
-        title: 'crud operations'
+    let sql = "SELECT * FROM users";
+    let query = connection.query(sql, (err, rows) => {
+        if(err) throw err;
+        res.render('user_index', {
+            title : 'crud operations',
+            users : rows
+        });
+        // res.send(rows)
     });
 });
 

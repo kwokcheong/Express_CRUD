@@ -2,5 +2,9 @@
     <body>
         this is the user_index page
         <%= title %>
+        <% users.forEach(function(user) { %>
+            <%= user.name %>
+            <%= user.id %>
+        <% }); %>
     </body>
 </html>
