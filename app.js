@@ -17,10 +17,16 @@ connection.connect(function(error) {
     error ? console.log(error) : console.log('Database connected!');
 });
 
+//static files
+app.use(express.static('public'));
+app.use('/css', express.static(__dirname + 'public/css'));
+app.use('/js', express.static(__dirname + 'public/js'));
+app.use('/img', express.static(__dirname + 'public/img'));
+
 //this sets the views to be directed to the views folder, try removing the 's' from views and try it out
 app.set('views', path.join(__dirname, 'views'));
-
 app.set('view engine', 'ejs');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
@@ -36,30 +42,11 @@ app.get('/', (req, res) => {
     });
 });
 
-// app.get('/create', async(req, res) => {
-//     let sql = "INSERT INTO users VALUES (4, 'test', 'test@gmail.com', 123)";
-//     connection.query(sql, (err, rows) => {
-//         if (err) throw err;
-//         res.render('user_index', {
-//             title : 'This is the user_index page',
-//             users : rows
-//         });
-//     });
-// });
-
-// app.post('/save', (req , res) => {
-//     let data;
-//     let sql = "INSERT INTO users SET ?";
-//     let query = "SELECT COUNT(id) AS max_id FROM users"
-//     connection.query(query, (err, rows) => {
-//         if (err) throw err;
-//         data = {id: rows[0].max_id + 1, name: req.body.name, email: req.body.email, phone_no: req.body.phone_no};
-//         connection.query(sql, data, (err, results) => {
-//             if (err) throw err;
-//             res.redirect('/');
-//         });
-//     });
-// });
+app.get('/frontend', (req,res) => {
+    res.render('frontend_page', {
+        title: 'testing front end'
+    })
+});
 
 app.get('/add', (req, res) => {
     res.render('user_add', {
@@ -113,4 +100,3 @@ app.post('/update', (req, res) => {
 app.listen(3000, () => {
     console.log('server is running at port 3000');
 });
-

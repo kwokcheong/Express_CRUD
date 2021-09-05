@@ -140,3 +140,34 @@ app.post('/save', (req , res) => {
     which takes in the sql query line, the data it needs to fill in the ? placeholder and also gives us back the error and result.
     from there we can respond with a redirect back to the original page. 
 
+
+
+
+#### placeholder code
+
+```
+// app.get('/create', async(req, res) => {
+//     let sql = "INSERT INTO users VALUES (4, 'test', 'test@gmail.com', 123)";
+//     connection.query(sql, (err, rows) => {
+//         if (err) throw err;
+//         res.render('user_index', {
+//             title : 'This is the user_index page',
+//             users : rows
+//         });
+//     });
+// });
+
+// app.post('/save', (req , res) => {
+//     let data;
+//     let sql = "INSERT INTO users SET ?";
+//     let query = "SELECT COUNT(id) AS max_id FROM users"
+//     connection.query(query, (err, rows) => {
+//         if (err) throw err;
+//         data = {id: rows[0].max_id + 1, name: req.body.name, email: req.body.email, phone_no: req.body.phone_no};
+//         connection.query(sql, data, (err, results) => {
+//             if (err) throw err;
+//             res.redirect('/');
+//         });
+//     });
+// });
+```
