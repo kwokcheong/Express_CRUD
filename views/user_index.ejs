@@ -30,8 +30,9 @@
                     <td><%= user.name %></td>
                     <td><%= user.email %></td>
                     <td><%= user.phone_no %></td>
-                    <td><button class="btn btn-light">Edit</button>
-                        <a href='/delete/<%= user.id %>'><button class="btn btn-danger">Delete</button></a>
+                    <td>
+                        <a href='/edit/<%= user.id %>' class="btn btn-light">Edit</a>
+                        <a href='/delete/<%= user.id %>' class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             <% }); %>

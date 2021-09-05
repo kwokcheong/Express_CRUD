@@ -47,12 +47,6 @@ app.get('/', (req, res) => {
 //     });
 // });
 
-app.get('/add', (req, res) => {
-    res.render('user_add', {
-        title: 'This is the create user page',
-    });
-});
-
 // app.post('/save', (req , res) => {
 //     let data;
 //     let sql = "INSERT INTO users SET ?";
@@ -66,6 +60,12 @@ app.get('/add', (req, res) => {
 //         });
 //     });
 // });
+
+app.get('/add', (req, res) => {
+    res.render('user_add', {
+        title: 'This is the create user page',
+    });
+});
 
 app.post('/save', (req , res) => {
     let data = {name: req.body.name, email: req.body.email, phone_no: req.body.phone_no};
@@ -84,6 +84,30 @@ app.get('/delete/:userId', (req,res) => {
         res.redirect('/');
     });
 });
+
+app.get('/edit/:userId', (req, res) => {
+    const userID = req.params.userId;
+    let sql = `SELECT * FROM users
+               WHERE users.id = ${userID}`;
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result[0])
+        res.render('user_edit', {
+            title: 'This is edit user page',
+            user: result[0]
+        });
+    });
+});
+
+app.post('/update', (req, res) => {
+    let data = {name: req.body.name, email: req.body.email, phone_no: req.body.phone_no}
+    let userId = req.body.id;
+    let sql = `UPDATE users SET ? WHERE users.id = ${userId}`
+    connection.query(sql, data, (err, result) => {
+        if (err) throw err;
+        res.redirect('/');
+    })
+})
 
 //listen to server
 app.listen(3000, () => {
