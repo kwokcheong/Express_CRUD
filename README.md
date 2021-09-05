@@ -1,6 +1,8 @@
 # Express_CRUD
 This is a CRUD template for Node JS Express and MySQL Database. 
 
+<img src="img\banner.png" alt="app image"/>
+
 *Objective*
 * To create, update, read, delete records from a user table
 * To connect to MySQL database using mysql2 and stash the secrets in dotenv
