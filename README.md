@@ -1,7 +1,8 @@
 # Express_CRUD
 This is a CRUD template for Node JS Express and MySQL Database. 
 
-<img src="img\banner.png" alt="app image"/>
+<img src="static\img\banner.png"/>
+
 
 *Objective*
 * To create, update, read, delete records from a user table
