@@ -53,17 +53,36 @@ app.get('/add', (req, res) => {
     });
 });
 
+// app.post('/save', (req , res) => {
+//     let data;
+//     let sql = "INSERT INTO users SET ?";
+//     let query = "SELECT COUNT(id) AS max_id FROM users"
+//     connection.query(query, (err, rows) => {
+//         if (err) throw err;
+//         data = {id: rows[0].max_id + 1, name: req.body.name, email: req.body.email, phone_no: req.body.phone_no};
+//         connection.query(sql, data, (err, results) => {
+//             if (err) throw err;
+//             res.redirect('/');
+//         });
+//     });
+// });
+
 app.post('/save', (req , res) => {
-    let data;
+    let data = {name: req.body.name, email: req.body.email, phone_no: req.body.phone_no};
     let sql = "INSERT INTO users SET ?";
-    let query = "SELECT COUNT(id) AS max_id FROM users"
-    connection.query(query, (err, rows) => {
+    connection.query(sql, data, (err, results) => {
         if (err) throw err;
-        data = {id: rows[0].max_id + 1, name: req.body.name, email: req.body.email, phone_no: req.body.phone_no};
-        connection.query(sql, data, (err, results) => {
-            if (err) throw err;
-            res.redirect('/');
-    })});
+        res.redirect('/');
+    });
+});
+
+app.get('/delete/:userId', (req,res) => {
+    const userID = req.params.userId;
+    let sql = `DELETE FROM users WHERE id = ${userID}`;
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+        res.redirect('/');
+    });
 });
 
 //listen to server
