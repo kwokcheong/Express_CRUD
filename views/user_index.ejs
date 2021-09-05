@@ -12,13 +12,15 @@
 <body>
 
 <div class="container">
+    <a href='/add'><button class="btn btn-success">Create user</button></a>
     <table class="table table-responsive-sm">
         <thead>
             <tr>
+                <th>id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone No</th>
-                <th>ID</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +30,9 @@
                     <td><%= user.name %></td>
                     <td><%= user.email %></td>
                     <td><%= user.phone_no %></td>
+                    <td><button class="btn btn-light">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
                 </tr>
             <% }); %>
         </tbody>

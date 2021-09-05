@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const ejs = require('ejs');
 const mysql = require('mysql2');
+const { maxHeaderSize } = require('http');
 const app = express();
 require('dotenv').config()
 
@@ -24,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
 
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
     let sql = "SELECT * FROM users";
     connection.query(sql, (err, rows) => {
         if(err) throw err;
@@ -33,6 +34,36 @@ app.get('/', async (req, res) => {
             users : rows
         });
     });
+});
+
+// app.get('/create', async(req, res) => {
+//     let sql = "INSERT INTO users VALUES (4, 'test', 'test@gmail.com', 123)";
+//     connection.query(sql, (err, rows) => {
+//         if (err) throw err;
+//         res.render('user_index', {
+//             title : 'This is the user_index page',
+//             users : rows
+//         });
+//     });
+// });
+
+app.get('/add', (req, res) => {
+    res.render('user_add', {
+        title: 'This is the create user page',
+    });
+});
+
+app.post('/save', (req , res) => {
+    let data;
+    let sql = "INSERT INTO users SET ?";
+    let query = "SELECT COUNT(id) AS max_id FROM users"
+    connection.query(query, (err, rows) => {
+        if (err) throw err;
+        data = {id: rows[0].max_id + 1, name: req.body.name, email: req.body.email, phone_no: req.body.phone_no};
+        connection.query(sql, data, (err, results) => {
+            if (err) throw err;
+            res.redirect('/');
+    })});
 });
 
 //listen to server
